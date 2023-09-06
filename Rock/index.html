@@ -1,0 +1,48 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="/css/styles.css" />
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="/assets/logo.png" alt="Rock" />
+        <h1>Rock-Paper-Scissors</h1>
+      </header>
+      <div class="scoreboard">
+        <div id="user-label" class="badge">user</div>
+        <span id="user-score">0</span>
+        <div id="computer-label" class="badge">comp</div>
+        <span id="computer-score">0</span>
+      </div>
+      <div class="compimg">
+        <img id="computerChoiceImage" src="" alt="" width="100px" />
+      </div>
+      <div class="infos">
+        <div class="result">
+          <p>Pick your weapon</p>
+        </div>
+      </div>
+      <div class="choices">
+        <div class="choice" id="r">
+          <img src="/assets/rock.png" alt="Rock" />
+        </div>
+        <div class="choice" id="p">
+          <img src="/assets/paper.png" alt="Paper" />
+        </div>
+        <div class="choice" id="s">
+          <img src="/assets/scissors.png" alt="Scissors" />
+        </div>
+      </div>
+      <div class="reset">
+        <button id="reset">Reset</button>
+      </div>
+    </div>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

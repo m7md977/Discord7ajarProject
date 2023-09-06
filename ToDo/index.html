@@ -1,0 +1,440 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+      body {
+        background-color: #1f1a21;
+        color: #ffffff;
+      }
+
+      h1 {
+        align-items: center;
+        text-align: center;
+      }
+
+      input {
+        width: 50%;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 5px;
+      }
+      .btn {
+        font-size: 10px;
+        margin: 0 15px 0 10px;
+        background-color: #26ba18;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #853fe8;
+        border: none;
+        height: 30px;
+        width: 100px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        width: 70%;
+        height: 100%;
+        background-color: #aca8b3;
+        border-radius: 5px;
+        padding: 10px;
+      }
+
+      .categories {
+        display: flex;
+        margin: 0 60px 0 0;
+        padding: 10px;
+        flex-direction: row;
+        align-items: center;
+        background-color: #853fe8;
+        width: 100%;
+        border-radius: 5px;
+      }
+
+      .categories i {
+        font-size: 30px;
+        margin: 0 15px 0 10px;
+      }
+
+      .categories i:hover {
+        cursor: pointer;
+      }
+
+      .categories input {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 5px;
+      }
+
+      .categories input:focus {
+        outline: none;
+      }
+
+      .categories input::placeholder {
+        color: #333;
+        text-align: center;
+      }
+      .categories-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 auto;
+        width: 70%;
+        height: 100%;
+        background-color: #aca8b3;
+        border-radius: 5px;
+        padding: 10px;
+      }
+      select {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        border: 1px solid #333;
+        padding: 5px;
+        margin: 5px;
+      }
+      .select ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tasks {
+        margin: 5% 0 0 0;
+        padding: 10px;
+        flex-direction: row;
+        align-items: center;
+        background: linear-gradient(rgba(147, 20, 237), rgb(206, 154, 252));
+        width: 90%;
+        height: auto;
+        gap: 10px;
+        border-radius: 5px;
+      }
+
+      .tasks ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tasks ul li {
+        border-radius: 5px;
+        background-attachment: fixed;
+        background-color: #26ba18;
+        align-items: center;
+        text-align: start;
+        padding: 10px;
+        margin: 5px;
+        width: 50%;
+        height: 30px;
+      }
+
+      .tasks ul li:hover {
+        cursor: pointer;
+      }
+
+      .tasks h4 i {
+        margin: 0 10px 0 3%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HTML code for the todo webapp -->
+    <div id="app" class="container">
+      <h1>Todo WebApp</h1>
+      <div id="categories" class="categories">
+        <h2>Categories</h2>
+
+        <input
+          type="text"
+          id="category-input"
+          placeholder="Enter category name" />
+        <button class="btn" id="add-category">Add Category</button>
+        <button class="btn" id="edit-category">Edit Category</button>
+        <button class="btn" id="delete-category">Delete Category</button>
+      </div>
+      <div class="categories-container">
+        <select class="select" name="categories" id="categories-select">
+          <ul id="category-list"></ul>
+        </select>
+      </div>
+      <div id="tasks" class="tasks">
+        <h2>Tasks</h2>
+
+        <input type="text" id="task-input" placeholder="Enter task name" />
+        <button class="btn" id="add-task" type="button" aria-label="Add task">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button class="btn" id="edit-task" type="button" aria-label="Edit task">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button
+          class="btn"
+          id="delete-task"
+          type="button"
+          aria-label="Delete task">
+          <i class="fas fa-trash"></i>
+        </button>
+        <ul id="task-list">
+          <!-- Task list items will be dynamically added here -->
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      // Get the elements from the DOM
+      const categoryList = document.getElementById("category-list");
+      const categoryInput = document.getElementById("category-input");
+      const addCategory = document.getElementById("add-category");
+      const editCategory = document.getElementById("edit-category");
+      const deleteCategory = document.getElementById("delete-category");
+      const taskList = document.getElementById("task-list");
+      const taskInput = document.getElementById("task-input");
+      const addTask = document.getElementById("add-task");
+      const editTask = document.getElementById("edit-task");
+      const deleteTask = document.getElementById("delete-task");
+
+      // Load categories and tasks from localStorage at the start
+      let categories = JSON.parse(localStorage.getItem("categories")) || [];
+      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      // Add event listener to add category button
+      addCategory.addEventListener("click", () => {
+        // Get the value of the input field
+        const category = categoryInput.value;
+
+        // Check if the input field is empty
+        if (category === "") {
+          alert("Please enter a category name");
+        } else {
+          // Add the category to the categories array
+          categories.push(category);
+
+          // Save categories to localStorage
+          localStorage.setItem("categories", JSON.stringify(categories));
+
+          // Clear the input field
+          categoryInput.value = "";
+
+          // Call the function to display the categories
+          displayCategories();
+        }
+      });
+
+      // Add event listener to edit category button
+      editCategory.addEventListener("click", () => {
+        // Get the value of the input field
+        const category = categoryInput.value;
+
+        // Check if the input field is empty
+        if (category === "") {
+          alert("Please enter a category name");
+        } else {
+          // Find the index of the category in the categories array
+          const index = categories.indexOf(category);
+
+          // Check if the category exists
+          if (index !== -1) {
+            // Update the category in the categories array
+            categories[index] = category;
+
+            // Save categories to localStorage
+            localStorage.setItem("categories", JSON.stringify(categories));
+
+            // Clear the input field
+            categoryInput.value = "";
+
+            // Call the function to display the categories
+            displayCategories();
+          } else {
+            alert("Category does not exist");
+          }
+        }
+      });
+
+      // Add event listener to delete category button
+      deleteCategory.addEventListener("click", () => {
+        // Get the value of the input field
+        const category = categoryInput.value;
+
+        // Check if the input field is empty
+        if (category === "") {
+          alert("Please enter a category name");
+        } else {
+          // Find the index of the category in the categories array
+          const index = categories.indexOf(category);
+
+          // Check if the category exists
+          if (index !== -1) {
+            // Remove the category from the categories array
+            categories.splice(index, 1);
+
+            // Save categories to localStorage
+            localStorage.setItem("categories", JSON.stringify(categories));
+
+            // Clear the input field
+            categoryInput.value = "";
+
+            // Call the function to display the categories
+            displayCategories();
+          } else {
+            alert("Category does not exist");
+          }
+        }
+      });
+
+      // Add event listener to add task button
+      addTask.addEventListener("click", () => {
+        // Get the value of the input field
+        const task = taskInput.value;
+
+        // Check if the input field is empty
+        if (task === "") {
+          alert("Please enter a task name");
+        } else {
+          // Add the task to the tasks array
+          tasks.push(task);
+
+          // Save tasks to localStorage
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+
+          // Clear the input field
+          taskInput.value = "";
+
+          // Call the function to display the tasks
+          displayTasks();
+        }
+      });
+
+      // Add event listener to edit task button
+      editTask.addEventListener("click", () => {
+        // Get the value of the input field
+        const task = taskInput.value;
+
+        // Check if the input field is empty
+        if (task === "") {
+          alert("Please enter a task name");
+        } else {
+          // Find the index of the task in the tasks array
+          const index = tasks.indexOf(task);
+
+          // Check if the task exists
+          if (index !== -1) {
+            // Update the task in the tasks array
+            tasks[index] = task;
+
+            // Save tasks to localStorage
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            // Clear the input field
+            taskInput.value = "";
+
+            // Call the function to display the tasks
+            displayTasks();
+          } else {
+            alert("Task does not exist");
+          }
+        }
+      });
+
+      // Add event listener to delete task button
+      deleteTask.addEventListener("click", () => {
+        // Get the value of the input field
+        const task = taskInput.value;
+
+        // Check if the input field is empty
+        if (task === "") {
+          alert("Please enter a task name");
+        } else {
+          // Find the index of the task in the tasks array
+          const index = tasks.indexOf(task);
+
+          // Check if the task exists
+          if (index !== -1) {
+            // Remove the task from the tasks array
+            tasks.splice(index, 1);
+
+            // Save tasks to localStorage
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            // Clear the input field
+            taskInput.value = "";
+
+            // Call the function to display the tasks
+            displayTasks();
+          } else {
+            alert("Task does not exist");
+          }
+        }
+      });
+
+      // Function to display the categories
+      const displayCategories = () => {
+        // Clear the category list
+        categoryList.innerHTML = "";
+
+        // Loop through the categories array
+        categories.forEach((category) => {
+          // Create a list item for each category
+          const li = document.createElement("li");
+
+          // Add the category name to the list item
+          li.innerText = category;
+
+          // Add the list item to the category list
+          categoryList.appendChild(li);
+        });
+      };
+
+      // Function to display the tasks
+      const displayTasks = () => {
+        // Clear the task list
+        taskList.innerHTML = "";
+
+        // Loop through the tasks array
+        tasks.forEach((task) => {
+          // Create a list item for each task
+          const li = document.createElement("li");
+
+          // Add the task name to the list item
+          li.innerText = task;
+
+          // Add the list item to the task list
+          taskList.appendChild(li);
+
+          // Add event listener to each task
+          li.addEventListener("click", () => {
+            // Check if the task is completed
+            if (li.style.textDecoration === "line-through") {
+              // Remove the line-through
+              li.style.textDecoration = "none";
+            } else {
+              // Add the line-through
+              li.style.textDecoration = "line-through";
+            }
+          });
+        });
+      };
+
+      // Call display functions at the start to display existing categories and tasks
+      displayCategories();
+      displayTasks();
+    </script>
+  </body>
+</html>
