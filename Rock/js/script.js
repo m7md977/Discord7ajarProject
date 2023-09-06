@@ -49,9 +49,9 @@ function reset() {
 }
 function setComputerChoiceImage(choice) {
   const images = {
-    r: "/assets/rock.png",
-    p: "/assets/paper.png",
-    s: "/assets/scissors.png",
+    r: "/rock/assets/rock.png",
+    p: "/rock/assets/paper.png",
+    s: "/rock/assets/scissors.png",
   };
   computerChoiceImage.src = images[choice];
 }

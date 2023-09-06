@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f6f6f6;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        color: #333;
+      }
+
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      section h2 {
+        margin-right: 10px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      section input {
+        width: 200px;
+        height: 30px;
+        padding: 5px;
+        font-size: 16px;
+        color: #333;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      button.start {
+        display: block;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #45a049;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+        margin: 0 auto;
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .grid-item:hover {
+        background-color: #f2f2f2;
+      }
+
+      #display {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <section>
+      <h2>First Player</h2>
+      <div>
+        <input id="name1" placeholder="Name" type="text" />
+      </div>
+    </section>
+    <section>
+      <h2>Second Player</h2>
+      <div>
+        <input id="name2" placeholder="Name" type="text" />
+      </div>
+    </section>
+    <button onclick="startGame()" class="start">Start</button>
+    <h1 id="display"></h1>
+    <div id="gameBoard" class="grid-container">
+      <div onclick="play(this, 0)" id="grid1" class="grid-item"></div>
+      <div onclick="play(this, 1)" id="grid2" class="grid-item"></div>
+      <div onclick="play(this, 2)" id="grid3" class="grid-item"></div>
+      <div onclick="play(this, 3)" id="grid4" class="grid-item"></div>
+      <div onclick="play(this, 4)" id="grid5" class="grid-item"></div>
+      <div onclick="play(this, 5)" id="grid6" class="grid-item"></div>
+      <div onclick="play(this, 6)" id="grid7" class="grid-item"></div>
+      <div onclick="play(this, 7)" id="grid8" class="grid-item"></div>
+      <div onclick="play(this, 8)" id="grid9" class="grid-item"></div>
+    </div>
+
+    <script>
+      const gameBoard = ["", "", "", "", "", "", "", "", ""];
+      let players = [];
+      let currentPlayer = 0;
+      const winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+      const hasWon = () => {
+        return winningCombos.some((combo) =>
+          combo.every(
+            (index) => gameBoard[index] === players[currentPlayer].symbol
+          )
+        );
+      };
+
+      const startGame = () => {
+        let name1 = document.getElementById("name1").value.trim();
+        let name2 = document.getElementById("name2").value.trim();
+        const symbol1 = "✅";
+        const symbol2 = "❎";
+
+        name1 = name1 ? name1 : "Player 1";
+        name2 = name2 ? name2 : "Player 2";
+
+        players = [
+          { name: name1, symbol: symbol1, score: players[0]?.score || 0 },
+          { name: name2, symbol: symbol2, score: players[1]?.score || 0 },
+        ];
+
+        for (let i = 1; i < 10; i++) {
+          document.getElementById(`grid${i}`).innerHTML = "";
+        }
+
+        gameBoard.fill("");
+        updateDisplay(`${players[currentPlayer].name} is on turn`, "black");
+        enableGrid();
+      };
+
+      const isTie = () => {
+        return gameBoard.every((cell) => cell !== "");
+      };
+
+      const updateDisplay = (message, color) => {
+        const display = document.getElementById("display");
+        display.innerHTML = `${message} | ${players[0].name}: ${players[0].score}, ${players[1].name}: ${players[1].score}`;
+        display.style.color = color;
+      };
+      const disableGrid = () => {
+        for (let i = 1; i < 10; i++) {
+          document.getElementById(`grid${i}`).style.pointerEvents = "none";
+        }
+      };
+
+      const enableGrid = () => {
+        for (let i = 1; i < 10; i++) {
+          document.getElementById(`grid${i}`).style.pointerEvents = "auto";
+        }
+      };
+
+      const play = (el, index) => {
+        const val = el.innerHTML;
+        if (val !== "") return;
+
+        const symbol = players[currentPlayer].symbol;
+        el.innerHTML = symbol;
+        gameBoard[index] = symbol;
+
+        if (hasWon()) {
+          players[currentPlayer].score++;
+          updateDisplay(
+            `${players[currentPlayer].name} has won! Click 'Start' to play again.`,
+            "red"
+          );
+          disableGrid();
+          return;
+        } else if (isTie()) {
+          updateDisplay("Nobody has won. Click 'Start' to play again.");
+          disableGrid();
+          return;
+        }
+
+        currentPlayer = (currentPlayer + 1) % 2;
+        updateDisplay(`${players[currentPlayer].name} is on turn`, "black");
+      };
+    </script>
+  </body>
+</html>
