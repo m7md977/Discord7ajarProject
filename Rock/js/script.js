@@ -1,44 +1,59 @@
-/** @format */
-
-// Cache DOM elements
 const userScore_span = document.getElementById("user-score");
 const computerScore_span = document.getElementById("computer-score");
 const result_p = document.querySelector(".result > p");
 const reset_button = document.getElementById("reset");
-const choices_div = {
-  r: document.getElementById("r"),
-  p: document.getElementById("p"),
-  s: document.getElementById("s"),
-};
-const computerChoiceImage = document.getElementById("computerChoiceImage");
+const scissorsSound = new Audio("assets/SoundEffects/Scissors.wav");
+const rockSound = new Audio("assets/SoundEffects/Rock.wav");
+const paperSound = new Audio("assets/SoundEffects/Paper.mp3");
+const winSound = new Audio("assets/SoundEffects/Win.wav");
+const loseSound = new Audio("assets/SoundEffects/Lose.wav");
 
-// Initialize scores
+rockSound.volume = 0.5; // 50% volume
+paperSound.volume = 0.5;
+scissorsSound.volume = 0.5;
+winSound.volume = 0.2;
+loseSound.volume = 0.3;
+
+const choices = {
+  r: {
+    element: document.getElementById("r"),
+    name: "Rock",
+    image: "/rock/assets/rock.png",
+    sound: rockSound,
+  },
+  p: {
+    element: document.getElementById("p"),
+    name: "Paper",
+    image: "/rock/assets/paper.png",
+    sound: paperSound,
+  },
+  s: {
+    element: document.getElementById("s"),
+    name: "Scissors",
+    image: "/rock/assets/scissors.png",
+    sound: scissorsSound,
+  },
+};
+
+const computerChoiceImage = document.getElementById("computerChoiceImage");
 let userScore = 0;
 let computerScore = 0;
 
-// Event Listeners
-choices_div.r.addEventListener("click", () => game("r"));
-choices_div.p.addEventListener("click", () => game("p"));
-choices_div.s.addEventListener("click", () => game("s"));
+Object.values(choices).forEach((choice) => {
+  choice.element.addEventListener("click", () => game(choice));
+});
+
 reset_button.addEventListener("click", reset);
 
 function game(userChoice) {
-  const computerChoice = getComputerChoice();
-  setComputerChoiceImage(computerChoice); // Add this line to set the image for computer's choice
-  switch (userChoice + computerChoice) {
-    case "rs":
-    case "pr":
-    case "sp":
-      win(userChoice, computerChoice);
-      break;
-    case "rp":
-    case "ps":
-    case "sr":
-      lose(userChoice, computerChoice);
-      break;
-    default:
-      draw(userChoice, computerChoice);
-  }
+  userChoice.sound.play(); // Play the sound for the user's choice immediately
+
+  setTimeout(() => {
+    const computerChoice = getComputerChoice();
+    computerChoiceImage.src = computerChoice.image;
+    const outcome = determineOutcome(userChoice, computerChoice);
+    updateUI(userChoice, computerChoice, outcome);
+  }, 1000); // 1000 milliseconds (1 second) delay
 }
 
 function reset() {
@@ -47,64 +62,52 @@ function reset() {
   computerScore_span.textContent = computerScore;
   result_p.textContent = "Let's play!";
 }
-function setComputerChoiceImage(choice) {
-  const images = {
-    r: "/rock/assets/rock.png",
-    p: "/rock/assets/paper.png",
-    s: "/rock/assets/scissors.png",
-  };
-  computerChoiceImage.src = images[choice];
-}
 
 function getComputerChoice() {
-  const choices = ["r", "p", "s"];
-  return choices[Math.floor(Math.random() * 3)];
+  const choiceKeys = Object.keys(choices);
+  return choices[choiceKeys[Math.floor(Math.random() * choiceKeys.length)]];
 }
 
-function convertToWord(letter) {
-  return { r: "Rock", p: "Paper", s: "Scissors" }[letter];
+function determineOutcome(userChoice, computerChoice) {
+  if (userChoice === computerChoice) return "draw";
+  const userKey = getKeyByValue(choices, userChoice);
+  const compKey = getKeyByValue(choices, computerChoice);
+  if (
+    (userKey === "r" && compKey === "s") ||
+    (userKey === "p" && compKey === "r") ||
+    (userKey === "s" && compKey === "p")
+  )
+    return "win";
+  return "lose";
 }
-
-function displayResult(userChoice, computerChoice, message) {
-  const smallUserWord = '<sub"> </sub>';
-  const smallCompWord = '<sub"> </sub>';
-  result_p.innerHTML = `${convertToWord(
-    userChoice
-  )}${smallUserWord} ${message} ${convertToWord(
-    computerChoice
-  )}${smallCompWord}.`;
-  choices_div[userChoice].classList.add(
-    message === "beats"
-      ? "green-glow"
-      : message === "loses to"
-      ? "red-glow"
-      : "gray-glow"
-  );
-  setTimeout(
-    () =>
-      choices_div[userChoice].classList.remove(
-        message === "beats"
-          ? "green-glow"
-          : message === "loses to"
-          ? "red-glow"
-          : "gray-glow"
-      ),
-    300
-  );
+function getKeyByValue(object, value) {
+  return Object.keys(object).find((key) => object[key] === value);
 }
-
-function win(userChoice, computerChoice) {
-  userScore++;
-  userScore_span.textContent = userScore;
-  displayResult(userChoice, computerChoice, "beats");
+function updateUI(userChoice, computerChoice, outcome) {
+  let message;
+  switch (outcome) {
+    case "win":
+      userScore++;
+      userScore_span.textContent = userScore;
+      message = `${userChoice.name} beats ${computerChoice.name}. You won!`;
+      winSound.play();
+      break;
+    case "lose":
+      computerScore++;
+      computerScore_span.textContent = computerScore;
+      message = `${userChoice.name} loses to ${computerChoice.name}. You lost!`;
+      loseSound.play();
+      break;
+    default:
+      message = `${userChoice.name} equals ${computerChoice.name}. It's a draw!`;
+  }
+  result_p.textContent = message;
 }
-
-function lose(userChoice, computerChoice) {
-  computerScore++;
-  computerScore_span.textContent = computerScore;
-  displayResult(userChoice, computerChoice, "loses to");
-}
-
-function draw(userChoice, computerChoice) {
-  displayResult(userChoice, computerChoice, "equals");
+function adjustVolume(value) {
+  const volumeLevel = parseFloat(value); // Convert string to float
+  rockSound.volume = volumeLevel;
+  paperSound.volume = volumeLevel;
+  scissorsSound.volume = volumeLevel;
+  winSound.volume = volumeLevel;
+  loseSound.volume = volumeLevel;
 }

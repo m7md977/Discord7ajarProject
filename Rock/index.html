@@ -6,7 +6,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/rock/assets/logo.png" rel="icon" />
-
     <link type="text/css" rel="stylesheet" href="/rock/css/styles.css" />
     <title>Rock Paper Scissors</title>
   </head>
@@ -17,13 +16,17 @@
         <h1>Rock-Paper-Scissors</h1>
       </header>
       <div class="scoreboard">
-        <div id="user-label" class="badge">user</div>
-        <span id="user-score">0</span>
-        <div id="computer-label" class="badge">comp</div>
-        <span id="computer-score">0</span>
+        <div class="user-results">
+          <div id="user-label" class="badge">User</div>
+          <span id="user-score">0</span>
+        </div>
+        <div class="user-results">
+          <div id="computer-label" class="badge">Bot</div>
+          <span id="computer-score">0</span>
+        </div>
       </div>
       <div class="compimg">
-        <img id="computerChoiceImage" src="" alt="" width="100px" />
+        <img id="computerChoiceImage" src="/Rock/assets/rock.png" alt="" />
       </div>
       <div class="infos">
         <div class="result">
@@ -44,6 +47,16 @@
       <div class="reset">
         <button id="reset">Reset</button>
       </div>
+      <label for="volume">Volume:</label>
+      <input
+        type="range"
+        id="volume"
+        name="volume"
+        min="0"
+        max="1"
+        step="0.1"
+        value="0.5"
+        onchange="adjustVolume(this.value)" />
     </div>
     <script src="/rock/js/script.js"></script>
   </body>
