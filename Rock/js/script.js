@@ -103,8 +103,11 @@ function updateUI(userChoice, computerChoice, outcome) {
   }
   result_p.textContent = message;
 }
-function adjustVolume(value) {
-  const volumeLevel = parseFloat(value); // Convert string to float
+function adjustVolume(volume) {
+  // volume is a string, so convert it to a float
+  const volumeLevel = parseFloat(volume);
+
+  // set the volume on all the sounds
   rockSound.volume = volumeLevel;
   paperSound.volume = volumeLevel;
   scissorsSound.volume = volumeLevel;
