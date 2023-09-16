@@ -1,0 +1,136 @@
+@import url("animation.css");
+@import url("hero.css");
+@import url("about.css");
+@import url("portfolio.css");
+@import url("contact.css");
+
+html,
+body {
+  font-family: "Caveat", cursive;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.text-container {
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  opacity: 0.8;
+  -webkit-user-select: none;
+  user-select: none;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
+.aside {
+  background-color: transparent;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100vh;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+.aside:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #000;
+  width: 100px;
+}
+main {
+  position: absolute;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  width: auto;
+  height: 100vh;
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.hero {
+}
+.about {
+}
+.portfolio {
+}
+.contact {
+}
+.top-aside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.aside__logo {
+  height: 30px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
+.aside__logo img {
+  height: 30px;
+  width: auto;
+}
+.aside__menu {
+  border-top: #fff solid 1px;
+  padding-top: 0.25rem;
+  width: auto;
+  height: 100%;
+}
+.aside__menu ul {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.aside__menu img {
+  height: 30px;
+  width: auto;
+}
+.aside__social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+
+.aside__social ul li img {
+  list-style: none;
+  height: 30px;
+  width: auto;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+ul li {
+  list-style: none;
+  list-style-type: none;
+
+  margin: 0.5rem;
+}

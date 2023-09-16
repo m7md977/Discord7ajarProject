@@ -1,0 +1,13 @@
+.hero__content--text {
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+  max-width: 70%;
+}
+.daddy {
+  color: black;
+  font-size: 3.5rem;
+  text-shadow: 0 0 0 0.2rem #000000;
+}
+.daddy:hover {
+}
