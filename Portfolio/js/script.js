@@ -1,3 +1,8 @@
+VanillaTilt.init(document.querySelectorAll(".portfolio__card"), {
+  max: 25,
+  speed: 400,
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const interBubble = document.querySelector(".interactive");
   let curX = 0;
@@ -48,22 +53,22 @@ function getRandomColor() {
   return color;
 }
 
-// Select all <p> elements on the page
-const paragraphs = document.querySelectorAll("p");
+// // Select all <p> elements on the page
+// const paragraphs = document.querySelectorAll("p");
 
-// Loop through each <p> element
-paragraphs.forEach((paragraph) => {
-  // Get the text content of the paragraph
-  const text = paragraph.textContent;
+// // Loop through each <p> element
+// paragraphs.forEach((paragraph) => {
+//   // Get the text content of the paragraph
+//   const text = paragraph.textContent;
 
-  // Create a new HTML string with each letter wrapped in a <span> element with a random color
-  const coloredText = text
-    .split("")
-    .map(
-      (letter) => `<span style="color: ${getRandomColor()}">${letter}</span>`
-    )
-    .join("");
+//   // Create a new HTML string with each letter wrapped in a <span> element with a random color
+//   const coloredText = text
+//     .split("")
+//     .map(
+//       (letter) => `<span style="color: ${getRandomColor()}">${letter}</span>`
+//     )
+//     .join("");
 
-  // Set the HTML content of the paragraph to the colored text
-  paragraph.innerHTML = coloredText;
-});
+//   // Set the HTML content of the paragraph to the colored text
+//   paragraph.innerHTML = coloredText;
+// });
