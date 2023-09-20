@@ -1,9 +1,9 @@
 .portfolio__content {
   text-align: center;
-  max-width: 70%;
   flex-direction: column;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .cards-container {
   display: flex;
@@ -13,6 +13,12 @@
   z-index: 1;
   max-width: 1200px;
   flex-direction: row;
+}
+.portfolio__title {
+  top: 0;
+  position: relative;
+  text-align: center;
+  letter-spacing: 0.2rem;
 }
 .portfolio__card {
   position: relative;
@@ -28,8 +34,21 @@
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-left: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   flex-direction: column;
   font-size: 1rem;
-  padding: 0;
+  padding: 10px;
+}
+.portfolio__card h1 {
+  top: 0;
+  position: absolute;
+  font-size: 3rem;
+}
+.portfolio__card p {
+  font-size: 2rem;
+}
+.large-words {
+  font-size: 3rem;
+  color: #3de01c;
 }

@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "username": "johndoe123",
+    "age": 30,
+    "address": {
+      "street": "123 Main Street",
+      "city": "Anytown",
+      "state": "CA",
+      "zipcode": "12345"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "janesmith@example.com",
+    "username": "janesmith456",
+    "age": 28,
+    "address": {
+      "street": "456 Elm Avenue",
+      "city": "Another City",
+      "state": "NY",
+      "zipcode": "67890"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "email": "alicejohnson@example.com",
+    "username": "alice123",
+    "age": 35,
+    "address": {
+      "street": "789 Oak Road",
+      "city": "Yet Another Town",
+      "state": "TX",
+      "zipcode": "54321"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "email": "alicejohnson@example.com",
+    "username": "alice123",
+    "age": 35,
+    "address": {
+      "street": "789 Oak Road",
+      "city": "Yet Another Town",
+      "state": "TX",
+      "zipcode": "54321"
+    }
+  }
+]
