@@ -1,1 +1,4 @@
 .hintrc
+node_modules/.bin/hint --config .hintrc
+.env
+Cards_Mongo

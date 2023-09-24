@@ -3,6 +3,10 @@ body {
 }
 main {
   background: #c3bcc7;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 .main {
   display: flex;
@@ -69,4 +73,13 @@ img {
 .card-content:hover img {
   transition: opacity 0.3s ease-in;
   opacity: 1;
+}
+#fetch-button {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #000;
+  background-color: transparent;
+  cursor: pointer;
 }

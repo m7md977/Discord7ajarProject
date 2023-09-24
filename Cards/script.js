@@ -5,7 +5,6 @@ function fetchUserData() {
     .then((data) => {
       const userDataDiv = document.getElementById("user-data");
       userDataDiv.innerHTML = ""; // Clear existing content
-
       data.forEach((user) => {
         const userDiv = document.createElement("div");
         userDiv.innerHTML = `
@@ -34,7 +33,7 @@ function fetchRandomUser() {
     .then((response) => response.json())
     .then((data) => {
       const userDataDiv = document.getElementById("user-rdata");
-      userDataDiv.innerHTML = ""; // Clear existing content
+      // userDataDiv.innerHTML = ""; // Clear existing content
 
       const user = data.results[0];
       const userDiv = document.createElement("div");
