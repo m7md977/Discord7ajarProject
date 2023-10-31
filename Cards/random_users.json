@@ -96,5 +96,47 @@
       "zipcode": "54321"
     },
     "img": "https://images.unsplash.com/photo-1694939200128-72adf7a5d054?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80 "
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "janesmith@example.com",
+    "username": "janesmith456",
+    "age": 28,
+    "address": {
+      "street": "456 Elm Avenue",
+      "city": "Another City",
+      "state": "NY",
+      "zipcode": "67890"
+    },
+    "img": "https://images.unsplash.com/photo-1694920406731-a6cec2b02911?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80"
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "email": "alicejohnson@example.com",
+    "username": "alice123",
+    "age": 35,
+    "address": {
+      "street": "789 Oak Road",
+      "city": "Yet Another Town",
+      "state": "TX",
+      "zipcode": "54321"
+    },
+    "img": "https://images.unsplash.com/photo-1694939200128-72adf7a5d054?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80 "
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "email": "alicejohnson@example.com",
+    "username": "alice123",
+    "age": 35,
+    "address": {
+      "street": "789 Oak Road",
+      "city": "Yet Another Town",
+      "state": "TX",
+      "zipcode": "54321"
+    },
+    "img": "https://images.unsplash.com/photo-1694939200128-72adf7a5d054?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80 "
   }
 ]
